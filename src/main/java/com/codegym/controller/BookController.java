@@ -2,7 +2,9 @@ package com.codegym.controller;
 
 
 import com.codegym.model.Book;
+import com.codegym.model.Category;
 import com.codegym.service.book.IBookService;
+import com.codegym.service.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,14 @@ public class BookController {
 
     @Autowired
     private IBookService bookService;
+
+    @Autowired
+    private ICategoryService categoryService;
+
+    @ModelAttribute("category")
+    public Iterable<Category> categories(){
+        return categoryService.findAll();
+    }
 
     @GetMapping("/create-book")
     public ModelAndView showCreateBookForm(){

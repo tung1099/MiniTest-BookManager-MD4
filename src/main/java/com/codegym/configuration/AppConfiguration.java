@@ -1,5 +1,6 @@
 package com.codegym.configuration;
 
+import com.codegym.formatter.CategoryFormatter;
 import com.codegym.service.book.BookService;
 import com.codegym.service.book.IBookService;
 import com.codegym.service.category.CategoryService;
@@ -121,8 +122,14 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
     public IBookService bookService(){
         return new BookService();
     }
+
     @Bean
     public ICategoryService categoryService(){
         return new CategoryService();
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry){
+        registry.addFormatter(new CategoryFormatter(applicationContext.getBean(CategoryService.class)));
     }
 }

@@ -14,6 +14,33 @@ public class Book {
     private int price;
     private String author;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    public Book(Long id, String name, int price, String author, Category category) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.author = author;
+        this.category = category;
+    }
+
+    public Book(String name, int price, String author, Category category) {
+        this.name = name;
+        this.price = price;
+        this.author = author;
+        this.category = category;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public Book() {
     }
 

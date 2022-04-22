@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Book</title>
 </head>
 <body>
+<a href="/create-book">Thêm mới sách  </a>
+<h1>Books</h1>
 
+<table border="1">
+    <tr>
+        <th>Tên sách </th>
+        <th>Giá thành</th>
+        <th>Tác giả</th>
+        <th>Thể loại</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <th:block th:each="book : ${books}">
+        <tr>
+            <td th:text="${book.name}"></td>
+            <td th:text="${book.price}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:if="${book.category}" th:text="${book.category.name}"></td>
+            <td th:unless="${book.category}"></td>
+            <td><a th:href="@{/edit-book/__${book.id}__ }">Chỉnh sửa</a></td>
+            <td><a th:href="@{/delete-book/__${book.id}__ }">Xóa</a></td>
+        </tr>
+    </th:block>
+</table>
+<br>
+<a href="/category">Danh sách thể loại </a>
 </body>
 </html>

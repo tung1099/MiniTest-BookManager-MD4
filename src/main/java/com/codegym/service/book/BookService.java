@@ -1,6 +1,7 @@
 package com.codegym.service.book;
 
 import com.codegym.model.Book;
+import com.codegym.model.Category;
 import com.codegym.repository.IBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,5 +32,10 @@ public class BookService implements IBookService{
     public void remove(Long id) {
 
         bookRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Book> findAllByCategory(Category category) {
+        return bookRepository.findAllByCategory(category);
     }
 }

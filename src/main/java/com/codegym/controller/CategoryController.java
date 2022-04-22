@@ -1,6 +1,8 @@
 package com.codegym.controller;
 
+import com.codegym.model.Book;
 import com.codegym.model.Category;
+import com.codegym.service.book.IBookService;
 import com.codegym.service.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,9 @@ public class CategoryController {
 
     @Autowired
     private ICategoryService categoryService;
+
+    @Autowired
+    private IBookService bookService;
 
     @GetMapping("/category")
     public ModelAndView listCategory() {
@@ -83,6 +88,27 @@ public class CategoryController {
     @PostMapping("/delete-category")
     public String deleteCategory(@ModelAttribute("category") Category category) {
         categoryService.remove(category.getId());
+        return "redirect:category";
+    }
+
+    @GetMapping("/view-category/{id}")
+    public ModelAndView viewCategory(@PathVariable("id") Long id){
+        Optional<Category> categoryOptional = categoryService.findById(id);
+        if(!categoryOptional.isPresent()){
+            return new ModelAndView("error.404");
+        }
+
+        Iterable<Book> books = bookService.findAllByCategory(categoryOptional.get());
+
+        ModelAndView modelAndView = new ModelAndView("category/view");
+        modelAndView.addObject("category", categoryOptional.get());
+        modelAndView.addObject("books", books);
+        return modelAndView;
+    }
+
+    @PostMapping("/view-category")
+    public String viewCategoryDetail(@ModelAttribute("category") Category category){
+        categoryService.findById(category.getId());
         return "redirect:category";
     }
 }
