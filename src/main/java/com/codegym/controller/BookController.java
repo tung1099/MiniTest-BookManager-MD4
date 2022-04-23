@@ -85,9 +85,7 @@ public class BookController {
 //        Iterable<Book> books = bookService.findAll();
         ModelAndView modelAndView = new ModelAndView("book/list");
         Page<Book> books ;
-//
-        int pageNum = 0;
-        if (page.isPresent() && page.get() > 1) pageNum = page.get()-1;
+
         if (keyword.isPresent()){
             books = bookService.findAllByNameContaining(keyword.get(), pageable);
 //            modelAndView.addObject("keyword",keyword.get());
