@@ -8,12 +8,12 @@
 <h1>Thêm mới sách </h1>
 
 <th:block th:if="${message}">
-    <p style="color: lawngreen" th:text="${message}"></p>
+    <p style="color: lawngreen" th:text="${message}" ></p>
 </th:block>
-<form th:action="@{/create-book}" th:object="${book}" method="post">
+<form th:action="@{/create-book}" th:object="${book}" method="post" enctype="multipart/form-data">
     <table>
         <tr>
-            <td>Tên sách :</td>
+            <td>Tên sách:</td>
             <td><input type="text" th:field="*{name}"/></td>
         </tr>
         <tr>
@@ -21,8 +21,12 @@
             <td><input type="text" th:field="*{price}"/></td>
         </tr>
         <tr>
-            <td>Tác giả :</td>
+            <td>Tác giả:</td>
             <td><input type="text" th:field="*{author}"/></td>
+        </tr>
+        <tr>
+            <td>Hình ảnh:</td>
+            <td><input type="file" name="image"/></td>
         </tr>
         <tr>
             <td>Thể loại:</td>
@@ -34,7 +38,7 @@
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" value="Create customer"></td>
+            <td><input type="submit" value="Thêm mới"></td>
         </tr>
     </table>
 </form>

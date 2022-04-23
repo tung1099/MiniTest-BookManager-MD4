@@ -13,6 +13,32 @@ public class Book {
     private String name;
     private int price;
     private String author;
+    private String image;
+
+    public Book(Long id, String name, int price, String author, String image, Category category) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.author = author;
+        this.image = image;
+        this.category = category;
+    }
+
+    public Book(String name, int price, String author, String image, Category category) {
+        this.name = name;
+        this.price = price;
+        this.author = author;
+        this.image = image;
+        this.category = category;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     @ManyToOne
     @JoinColumn(name = "category_id")
