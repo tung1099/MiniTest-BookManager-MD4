@@ -9,12 +9,13 @@ import com.codegym.service.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -77,12 +78,27 @@ public class BookController {
     }
 
     @GetMapping("/books")
-    public ModelAndView listBook(){
-        Iterable<Book> books = bookService.findAll();
+    public ModelAndView listBook(@PageableDefault(value = 3) Pageable pageable,
+                                 @RequestParam("search") Optional<String> keyword,
+                                 @RequestParam("page") Optional<Integer> page){
+
+//        Iterable<Book> books = bookService.findAll();
         ModelAndView modelAndView = new ModelAndView("book/list");
+        Page<Book> books ;
+//
+        int pageNum = 0;
+        if (page.isPresent() && page.get() > 1) pageNum = page.get()-1;
+        if (keyword.isPresent()){
+            books = bookService.findAllByNameContaining(keyword.get(), pageable);
+//            modelAndView.addObject("keyword",keyword.get());
+        }else {
+            books = bookService.findAll(pageable);
+        }
+
         modelAndView.addObject("books", books);
         return modelAndView;
     }
+
     @GetMapping("/edit-book/{id}")
     public ModelAndView showEditBookForm(@PathVariable Long id){
         Optional<Book> book = bookService.findById(id);
@@ -123,5 +139,6 @@ public class BookController {
         bookService.remove(book.getId());
         return "redirect:books";
     }
+
 
 }
