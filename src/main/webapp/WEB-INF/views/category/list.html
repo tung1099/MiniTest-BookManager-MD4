@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="/layout :: head">
     <meta charset="UTF-8">
     <title>Categories</title>
 </head>
 <body>
 <a href="/create-category">Thêm mới thể loại</a>
-<h1 style="color: crimson;font-family: sans-serif;">Danh sách thể loại</h1>
-<table border="1">
+<h1>Danh sách thể loại</h1>
+<table id="category">
     <tr>
-        <th>#</th>
         <th>Thể loại</th>
         <th>Mô tả</th>
         <th>Chỉnh sửa</th>
@@ -18,7 +17,6 @@
     </tr>
     <th:block th:each="c : ${category}">
         <tr>
-            <td th:text="${c.id}"></td>
             <td th:text="${c.name}"></td>
             <td th:text="${c.description}"></td>
             <td><a th:href="@{/edit-category/__${c.id}__ }">Chỉnh sửa</a></td>
@@ -28,5 +26,6 @@
     </th:block>
 </table>
 <a href="/books">Home</a>
+<footer th:replace="/layout :: footer"></footer>
 </body>
 </html>

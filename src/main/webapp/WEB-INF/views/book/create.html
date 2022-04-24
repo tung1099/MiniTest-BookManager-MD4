@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="/layout :: head">
     <meta charset="UTF-8">
     <title>Create customer</title>
 </head>
@@ -10,6 +10,7 @@
 <th:block th:if="${message}">
     <p style="color: lawngreen" th:text="${message}" ></p>
 </th:block>
+<div id="form">
 <form th:action="@{/create-book}" th:object="${book}" method="post" enctype="multipart/form-data">
     <table>
         <tr>
@@ -42,7 +43,9 @@
         </tr>
     </table>
 </form>
+</div>
 <br>
 <a href="/books">Trở về </a>
+<footer th:replace="/layout :: footer"></footer>
 </body>
 </html>

@@ -79,8 +79,7 @@ public class BookController {
 
     @GetMapping("/books")
     public ModelAndView listBook(@PageableDefault(value = 3) Pageable pageable,
-                                 @RequestParam("search") Optional<String> keyword,
-                                 @RequestParam("page") Optional<Integer> page){
+                                 @RequestParam("search") Optional<String> keyword){
 
 //        Iterable<Book> books = bookService.findAll();
         ModelAndView modelAndView = new ModelAndView("book/list");
@@ -88,7 +87,6 @@ public class BookController {
 
         if (keyword.isPresent()){
             books = bookService.findAllByNameContaining(keyword.get(), pageable);
-//            modelAndView.addObject("keyword",keyword.get());
         }else {
             books = bookService.findAll(pageable);
         }

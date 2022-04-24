@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="/layout :: head">
     <meta charset="UTF-8">
     <title>Thêm mới thể loại</title>
 </head>
 <body>
-<h1 style="color: crimson;font-family: sans-serif;">Thêm mới thể loại</h1>
+<h1>Thêm mới thể loại</h1>
 <th:block th:if="${message}">
     <p style="color:lawngreen" th:text="${message}"></p>
 </th:block>
+<div id="form">
 <form th:action="@{/create-category}" th:object="${category}" method="post">
-    <table>
+    <table id="category">
         <tr>
             <td>Thể loại:</td>
             <td><input type="text" th:field="*{name}"></td>
@@ -25,7 +26,9 @@
         </tr>
     </table>
 </form>
+</div>
 <br>
 <a href="/category">Trở về</a>
+<footer th:replace="/layout :: footer"></footer>
 </body>
 </html>

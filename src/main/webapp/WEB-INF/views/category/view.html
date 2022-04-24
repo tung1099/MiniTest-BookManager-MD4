@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="/layout :: head">
     <meta charset="UTF-8">
     <title>View category</title>
 </head>
 <body>
 <h1>Thể loại: <span th:text="${category.name}"></span></h1>
 
-<table border="1">
+<table id="category">
     <tr>
         <th>Tên sách </th>
         <th>Giá thành </th>
@@ -24,5 +24,6 @@
     </th:block>
 </table>
 <a href="/category">Trở về </a>
+<footer th:replace="/layout :: footer"></footer>
 </body>
 </html>
